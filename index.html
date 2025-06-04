@@ -1,433 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FMLA Work Week Boundary Impact - Printable Report</title>
-  <style>
-      body {
-          font-family: Arial, sans-serif;
-          margin: 20px;
-          line-height: 1.4;
-      }
-
-      .page-break {
-          page-break-before: always;
-      }
-
-      h1 {
-          text-align: center;
-          margin-bottom: 30px;
-          font-size: 24px;
-      }
-
-      h2 {
-          color: #333;
-          border-bottom: 2px solid #ccc;
-          padding-bottom: 5px;
-          margin-top: 30px;
-          font-size: 20px;
-      }
-
-      h3 {
-          color: #555;
-          margin-top: 20px;
-          font-size: 16px;
-      }
-
-      .example-container {
-          margin-bottom: 40px;
-      }
-
-      .method-comparison {
-          display: flex;
-          gap: 30px;
-          margin-bottom: 30px;
-      }
-
-      .method-section {
-          flex: 1;
-          border: 1px solid #ddd;
-          padding: 15px;
-          border-radius: 5px;
-      }
-
-      .calendar-grid {
-          display: grid;
-          grid-template-columns: repeat(7, 1fr);
-          gap: 2px;
-          margin-bottom: 15px;
-      }
-
-      .day-cell {
-          border: 1px solid #ccc;
-          padding: 8px;
-          text-align: center;
-          font-size: 10px;
-          min-height: 50px;
-      }
-
-      .scheduled-work { background-color: #dcfce7; border-color: #86efac; }
-      .not-scheduled { background-color: #e5e7eb; border-color: #9ca3af; }
-      .leave-scheduled { background-color: #16a34a; color: white; border-color: #15803d; }
-
-      .monday-boundary { border-left: 4px solid #dc2626; }
-      .monday-boundary-end { border-right: 4px solid #dc2626; }
-      .leave-boundary { border-left: 4px solid #dc2626; }
-      .leave-boundary-end { border-right: 4px solid #dc2626; }
-
-      .calculation-box {
-          background-color: #f8fafc;
-          border: 1px solid #cbd5e1;
-          padding: 10px;
-          margin: 5px 0;
-          border-radius: 3px;
-          font-size: 12px;
-      }
-
-      .total-box {
-          background-color: #dbeafe;
-          border: 1px solid #3b82f6;
-          padding: 15px;
-          margin-top: 15px;
-          border-radius: 5px;
-          text-align: center;
-      }
-
-      .total-number {
-          font-size: 24px;
-          font-weight: bold;
-          color: #1e40af;
-      }
-
-      .legend {
-          display: flex;
-          gap: 15px;
-          margin: 15px 0;
-          font-size: 11px;
-      }
-
-      .legend-item {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-      }
-
-      .legend-color {
-          width: 15px;
-          height: 15px;
-          border: 1px solid #999;
-      }
-
-      .summary-box {
-          background-color: #f3f4f6;
-          padding: 15px;
-          margin: 20px 0;
-          border-radius: 5px;
-      }
-
-      @media print {
-          .page-break {
-              page-break-before: always;
-          }
-          body {
-              margin: 10px;
-          }
-      }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMLA Work Week Boundary Impact - Printable Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.4;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        
+        .example-container {
+            margin-bottom: 40px;
+        }
+        
+        .method-comparison {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .method-section {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 15px;
+        }
+        
+        .day-cell {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            font-size: 10px;
+            min-height: 50px;
+        }
+        
+        .scheduled-work { background-color: #dcfce7; border-color: #86efac; }
+        .not-scheduled { background-color: #e5e7eb; border-color: #9ca3af; }
+        .leave-scheduled { background-color: #16a34a; color: white; border-color: #15803d; }
+        
+        .monday-boundary { border-left: 4px solid #dc2626; }
+        .monday-boundary-end { border-right: 4px solid #dc2626; }
+        .leave-boundary { border-left: 4px solid #dc2626; }
+        .leave-boundary-end { border-right: 4px solid #dc2626; }
+        
+        .calculation-box {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .total-box {
+            background-color: #dbeafe;
+            border: 1px solid #3b82f6;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .total-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 11px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border: 1px solid #999;
+        }
+        
+        .summary-box {
+            background-color: #f3f4f6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+            body {
+                margin: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>FMLA Work Week Boundary Impact Analysis</h1>
-
-<div class="summary-box">
-  <h3>Employee Schedule Pattern:</h3>
-  <ul>
-    <li>Week 1 (Jun 2-8): Mon-Thu = 32 hours</li>
-    <li>Week 2 (Jun 9-15): Mon-Fri = 40 hours</li>
-    <li>Week 3 (Jun 16-22): Tue-Fri = 32 hours</li>
-    <li>Week 4 (Jun 23-29): Mon-Fri = 40 hours</li>
-  </ul>
-</div>
-
-<!-- Example 1 -->
-<div class="example-container">
-  <h2>Example 1: June 5-19 Leave (15 calendar days)</h2>
-  <p><strong>Result:</strong> Leave-Start method uses 0.20 MORE weeks than Monday-Sunday</p>
-
-  <div class="method-comparison">
-    <!-- Monday-Sunday Method -->
-    <div class="method-section">
-      <h3>Monday-Sunday Weeks (2.00 weeks total)</h3>
-
-      <!-- Week 1 -->
-      <h4>Week 1 (Jun 2-8)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 2<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 3<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 4<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 5<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 8<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h | On leave: 8h | FMLA used: 0.25 weeks (25%)
-      </div>
-
-      <!-- Week 2 -->
-      <h4>Week 2 (Jun 9-15)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled monday-boundary"><strong>Mon</strong><br>Jun 9<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 10<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 11<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 12<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Fri</strong><br>Jun 13<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 15<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 40h | On leave: 40h | FMLA used: 1.00 weeks (100%)
-      </div>
-
-      <!-- Week 3 -->
-      <h4>Week 3 (Jun 16-22)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell not-scheduled monday-boundary"><strong>Mon</strong><br>Jun 16<br>0h</div>
-        <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 17<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 18<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 19<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 20<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 22<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h | On leave: 24h | FMLA used: 0.75 weeks (75%)
-      </div>
-
-      <!-- Week 4 -->
-      <h4>Week 4 (Jun 23-29)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 23<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 24<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 25<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 26<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 27<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 28<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 29<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 40h | On leave: 0h | FMLA used: 0.00 weeks (0%)
-      </div>
-
-      <div class="total-box">
-        <div class="total-number">2.00 weeks</div>
-        <div>Monday-Sunday method</div>
-      </div>
+    <h1>FMLA Work Week Boundary Impact Analysis</h1>
+    
+    <!-- Example 1 -->
+    <div class="example-container">
+        <h2>Example 1: June 5-19 Leave</h2>
+        <p><strong>Result:</strong> Leave-Start method uses 0.20 MORE weeks than Monday-Sunday</p>
+        
+        <div class="method-comparison">
+            <!-- Monday-Sunday Method -->
+            <div class="method-section">
+                <h3>Monday-Sunday Weeks (2.00 weeks total)</h3>
+                
+                <!-- Week 1 -->
+                <h4>Week 1 (Jun 2-8)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 2<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 3<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 4<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 5<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 8<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 8h | FMLA used: 0.25 weeks (25%)
+                </div>
+                
+                <!-- Week 2 -->
+                <h4>Week 2 (Jun 9-15)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled monday-boundary"><strong>Mon</strong><br>Jun 9<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 10<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 11<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 12<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Fri</strong><br>Jun 13<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 15<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 40h | On leave: 40h | FMLA used: 1.00 weeks (100%)
+                </div>
+                
+                <!-- Week 3 -->
+                <h4>Week 3 (Jun 16-22)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell not-scheduled monday-boundary"><strong>Mon</strong><br>Jun 16<br>0h</div>
+                    <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 17<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 18<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 19<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 20<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 22<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 24h | FMLA used: 0.75 weeks (75%)
+                </div>
+                
+                <!-- Week 4 -->
+                <h4>Week 4 (Jun 23-29)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 23<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 24<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 25<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 26<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 27<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 28<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 29<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 40h | On leave: 0h | FMLA used: 0.00 weeks (0%)
+                </div>
+                
+                <div class="total-box">
+                    <div class="total-number">2.00 weeks</div>
+                    <div>Monday-Sunday method</div>
+                </div>
+            </div>
+            
+            <!-- Leave-Start Method -->
+            <div class="method-section">
+                <h3>Leave-Start Weeks (2.20 weeks total)</h3>
+                
+                <!-- Week 1 -->
+                <h4>Leave Week 1 (Jun 5-11)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled leave-boundary"><strong>Thu</strong><br>Jun 5<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 8<br>0h</div>
+                    <div class="day-cell leave-scheduled"><strong>Mon</strong><br>Jun 9<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 10<br>8h</div>
+                    <div class="day-cell leave-scheduled leave-boundary-end"><strong>Wed</strong><br>Jun 11<br>8h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 32h | FMLA used: 1.00 weeks (100%)
+                </div>
+                
+                <!-- Week 2 -->
+                <h4>Leave Week 2 (Jun 12-18)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled leave-boundary"><strong>Thu</strong><br>Jun 12<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Fri</strong><br>Jun 13<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 15<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Mon</strong><br>Jun 16<br>0h</div>
+                    <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 17<br>8h</div>
+                    <div class="day-cell leave-scheduled leave-boundary-end"><strong>Wed</strong><br>Jun 18<br>8h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 32h | FMLA used: 1.00 weeks (100%)
+                </div>
+                
+                <!-- Week 3 -->
+                <h4>Leave Week 3 (Jun 19-25)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled leave-boundary"><strong>Thu</strong><br>Jun 19<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 20<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 22<br>0h</div>
+                    <div class="day-cell scheduled-work"><strong>Mon</strong><br>Jun 23<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 24<br>8h</div>
+                    <div class="day-cell scheduled-work leave-boundary-end"><strong>Wed</strong><br>Jun 25<br>8h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 40h | On leave: 8h | FMLA used: 0.20 weeks (20%)
+                </div>
+                
+                <div class="total-box">
+                    <div class="total-number">2.20 weeks</div>
+                    <div>Leave-Start method</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Leave-Start Method -->
-    <div class="method-section">
-      <h3>Leave-Start Weeks (2.20 weeks total)</h3>
+    <div class="page-break"></div>
 
-      <!-- Week 1 -->
-      <h4>Leave Week 1 (Jun 5-11)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled leave-boundary"><strong>Thu</strong><br>Jun 5<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 8<br>0h</div>
-        <div class="day-cell leave-scheduled"><strong>Mon</strong><br>Jun 9<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 10<br>8h</div>
-        <div class="day-cell leave-scheduled leave-boundary-end"><strong>Wed</strong><br>Jun 11<br>8h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h (Thu + Mon + Tue + Wed) | On leave: 32h | FMLA used: 1.00 weeks (100%)
-      </div>
-
-      <!-- Week 2 -->
-      <h4>Leave Week 2 (Jun 12-18)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled leave-boundary"><strong>Thu</strong><br>Jun 12<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Fri</strong><br>Jun 13<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 15<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Mon</strong><br>Jun 16<br>0h</div>
-        <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 17<br>8h</div>
-        <div class="day-cell leave-scheduled leave-boundary-end"><strong>Wed</strong><br>Jun 18<br>8h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h (Thu + Fri + Tue + Wed) | On leave: 32h | FMLA used: 1.00 weeks (100%)
-      </div>
-
-      <!-- Week 3 -->
-      <h4>Leave Week 3 (Jun 19-25)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled leave-boundary"><strong>Thu</strong><br>Jun 19<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 20<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 22<br>0h</div>
-        <div class="day-cell scheduled-work"><strong>Mon</strong><br>Jun 23<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 24<br>8h</div>
-        <div class="day-cell scheduled-work leave-boundary-end"><strong>Wed</strong><br>Jun 25<br>8h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 40h (Thu + Fri + Mon + Tue + Wed) | On leave: 8h | FMLA used: 0.20 weeks (20%)
-      </div>
-
-      <div class="total-box">
-        <div class="total-number">2.20 weeks</div>
-        <div>Leave-Start method</div>
-      </div>
+    <!-- Example 2 -->
+    <div class="example-container">
+        <h2>Example 2: June 3-16 Leave</h2>
+        <p><strong>Result:</strong> Monday-Start method uses 0.25 MORE weeks than Leave-Start
+        <div class="method-comparison">
+            <!-- Monday-Sunday Method -->
+            <div class="method-section">
+                <h3>Monday-Sunday Weeks (2.25 weeks total)</h3>
+                
+                <!-- Week 1 -->
+                <h4>Week 1 (Jun 2-8)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 2<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 3<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 4<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 5<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 8<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 24h | FMLA used: 0.75 weeks (75%)
+                </div>
+                
+                <!-- Week 2 -->
+                <h4>Week 2 (Jun 9-15)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled monday-boundary"><strong>Mon</strong><br>Jun 9<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 10<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 11<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 12<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Fri</strong><br>Jun 13<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 15<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 40h | On leave: 40h | FMLA used: 1.00 weeks (100%)
+                </div>
+                
+                <!-- Week 3 -->
+                <h4>Week 3 (Jun 16-22)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled monday-boundary"><strong>Mon</strong><br>Jun 16<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Tue</strong><br>Jun 17<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 18<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Thu</strong><br>Jun 19<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 20<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 22<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 16h | On leave: 8h | FMLA used: 0.50 weeks (50%)
+                </div>
+                
+                <!-- Week 4 -->
+                <h4>Week 4 (Jun 23-29)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 23<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 24<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 25<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 26<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 27<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 28<br>0h</div>
+                    <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 29<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 40h | On leave: 0h | FMLA used: 0.00 weeks (0%)
+                </div>
+                
+                <div class="total-box">
+                    <div class="total-number">2.25 weeks</div>
+                    <div>Monday-Sunday method</div>
+                </div>
+            </div>
+            
+            <!-- Leave-Start Method -->
+            <div class="method-section">
+                <h3>Leave-Start Weeks (2.00 weeks total)</h3>
+                
+                <!-- Week 1 -->
+                <h4>Leave Week 1 (Jun 4-10)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled leave-boundary"><strong>Tue</strong><br>Jun 3<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 4<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 5<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 8<br>0h</div>
+                    <div class="day-cell leave-scheduled leave-boundary-end"><strong>Mon</strong><br>Jun 9<br>8h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 32h | FMLA used: 1.00 weeks (100%)
+                </div>
+                
+                <!-- Week 2 -->
+                <h4>Leave Week 2 (Jun 11-17)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell leave-scheduled leave-boundary"><strong>Tue</strong><br>Jun 10<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 11<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 12<br>8h</div>
+                    <div class="day-cell leave-scheduled"><strong>Fri</strong><br>Jun 13<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 15<br>0h</div>
+                    <div class="day-cell leave-scheduled leave-boundary-end"><strong>Mon</strong><br>Jun 16<br>0h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 32h | On leave: 24h | FMLA used: 0.75 weeks (75%)
+                </div>
+                
+                <!-- Week 3 -->
+                <h4>Leave Week 3 (Jun 18-24)</h4>
+                <div class="calendar-grid">
+                    <div class="day-cell not-scheduled leave-boundary"><strong>Tue</strong><br>Jun 17<br>8h</div>
+                    <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 18<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Thu</strong><br>Jun 19<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 20<br>8h</div>
+                    <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
+                    <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 22<br>0h</div>
+                    <div class="day-cell scheduled-work leave-boundary-end"><strong>Mon</strong><br>Jun 23<br>8h</div>
+                </div>
+                <div class="calculation-box">
+                    Scheduled: 16h | On leave: 0h | FMLA used: 0.00 weeks (0%)
+                </div>
+                
+                <div class="total-box">
+                    <div class="total-number">2.00 weeks</div>
+                    <div>Leave-Start method</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="page-break"></div>
-
-<!-- Example 2 -->
-<div class="example-container">
-  <h2>Example 2: June 4-11 Leave (8 calendar days)</h2>
-  <p><strong>Result:</strong> Monday-Sunday method uses 0.15 MORE weeks than Leave-Start</p>
-
-  <div class="method-comparison">
-    <!-- Monday-Sunday Method -->
-    <div class="method-section">
-      <h3>Monday-Sunday Weeks (1.10 weeks total)</h3>
-
-      <!-- Week 1 -->
-      <h4>Week 1 (Jun 2-8)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 2<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 3<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 4<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 5<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 8<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h | On leave: 16h | FMLA used: 0.50 weeks (50%)
-      </div>
-
-      <!-- Week 2 -->
-      <h4>Week 2 (Jun 9-15)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled monday-boundary"><strong>Mon</strong><br>Jun 9<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Tue</strong><br>Jun 10<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Wed</strong><br>Jun 11<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 12<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 13<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 15<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 40h | On leave: 24h | FMLA used: 0.60 weeks (60%)
-      </div>
-
-      <!-- Week 3 -->
-      <h4>Week 3 (Jun 16-22)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell not-scheduled monday-boundary"><strong>Mon</strong><br>Jun 16<br>0h</div>
-        <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 17<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 18<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 19<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 20<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 21<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 22<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h | On leave: 0h | FMLA used: 0.00 weeks (0%)
-      </div>
-
-      <!-- Week 4 -->
-      <h4>Week 4 (Jun 23-29)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell scheduled-work monday-boundary"><strong>Mon</strong><br>Jun 23<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Tue</strong><br>Jun 24<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Wed</strong><br>Jun 25<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 26<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 27<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 28<br>0h</div>
-        <div class="day-cell not-scheduled monday-boundary-end"><strong>Sun</strong><br>Jun 29<br>0h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 40h | On leave: 0h | FMLA used: 0.00 weeks (0%)
-      </div>
-
-      <div class="total-box">
-        <div class="total-number">1.10 weeks</div>
-        <div>Monday-Sunday method</div>
-      </div>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color scheduled-work"></div>
+            <span>Scheduled work day</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color not-scheduled"></div>
+            <span>Not scheduled</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color leave-scheduled"></div>
+            <span>On leave + scheduled (FMLA impact)</span>
+        </div>
+        <div class="legend-item">
+            <div style="width: 15px; height: 15px; border-left: 4px solid #dc2626; border-right: 2px solid #dc2626;"></div>
+            <span>Work week boundaries</span>
+        </div>
     </div>
-
-    <!-- Leave-Start Method -->
-    <div class="method-section">
-      <h3>Leave-Start Weeks (1.25 weeks total)</h3>
-
-      <!-- Week 1 -->
-      <h4>Leave Week 1 (Jun 4-10)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled leave-boundary"><strong>Wed</strong><br>Jun 4<br>8h</div>
-        <div class="day-cell leave-scheduled"><strong>Thu</strong><br>Jun 5<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Fri</strong><br>Jun 6<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 7<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 8<br>0h</div>
-        <div class="day-cell leave-scheduled"><strong>Mon</strong><br>Jun 9<br>8h</div>
-        <div class="day-cell leave-scheduled leave-boundary-end"><strong>Tue</strong><br>Jun 10<br>8h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h (Wed + Thu + Mon + Tue) | On leave: 32h | FMLA used: 1.00 weeks (100%)
-      </div>
-
-      <!-- Week 2 -->
-      <h4>Leave Week 2 (Jun 11-17)</h4>
-      <div class="calendar-grid">
-        <div class="day-cell leave-scheduled leave-boundary"><strong>Wed</strong><br>Jun 11<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Thu</strong><br>Jun 12<br>8h</div>
-        <div class="day-cell scheduled-work"><strong>Fri</strong><br>Jun 13<br>8h</div>
-        <div class="day-cell not-scheduled"><strong>Sat</strong><br>Jun 14<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Sun</strong><br>Jun 15<br>0h</div>
-        <div class="day-cell not-scheduled"><strong>Mon</strong><br>Jun 16<br>0h</div>
-        <div class="day-cell scheduled-work leave-boundary-end"><strong>Tue</strong><br>Jun 17<br>8h</div>
-      </div>
-      <div class="calculation-box">
-        Scheduled: 32h (Wed + Thu + Fri + Tue) | On leave: 8h | FMLA used: 0.25 weeks (25%)
-      </div>
-
-      <div class="total-box">
-        <div class="total-number">1.25 weeks</div>
-        <div>Leave-Start method</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="legend">
-  <div class="legend-item">
-    <div class="legend-color scheduled-work"></div>
-    <span>Scheduled work day</span>
-  </div>
-  <div class="legend-item">
-    <div class="legend-color not-scheduled"></div>
-    <span>Not scheduled</span>
-  </div>
-  <div class="legend-item">
-    <div class="legend-color leave-scheduled"></div>
-    <span>On leave + scheduled (FMLA impact)</span>
-  </div>
-  <div class="legend-item">
-    <div style="width: 15px; height: 15px; border-left: 4px solid #dc2626; border-right: 2px solid #dc2626;"></div>
-    <span>Work week boundaries</span>
-  </div>
-</div>
-
-<div class="summary-box">
-  <h3>Key Insights:</h3>
-  <p><strong>Example 1:</strong> Leave-Start boundaries group leave days into complete lower-hour weeks (32h), creating higher percentages (1.0 + 1.0 + 0.2 = 2.2 weeks) compared to Monday-Sunday's mixed approach (0.25 + 1.0 + 0.75 = 2.0 weeks).</p>
-
-  <p><strong>Example 2:</strong> Monday-Sunday boundaries force partial usage of both 32h and 40h weeks (0.5 + 0.6 = 1.1 weeks), while Leave-Start captures one complete 32h week plus partial usage (1.0 + 0.25 = 1.25 weeks).</p>
-
-  <p><strong>Conclusion:</strong> With variable schedules, work week boundary choice can impact FMLA usage by 0.15-0.20 weeks, highlighting the importance of consistent boundary definitions for fair administration.</p>
-</div>
 </body>
 </html>
